@@ -5,7 +5,7 @@ import "components/Application.scss";
 import DayList from "./DayList";
 // import InterviewerList from "./InterviewerList";
 import Appointment from "./Appointment";
-import { getAppointmentsForDay } from "helpers/selectors";
+import { getAppointmentsForDay, getInterview } from "helpers/selectors";
 
 
 export default function Application() {
@@ -13,10 +13,10 @@ export default function Application() {
   const [state, setState] = useState({
     day: "Monday",
     days: [],
-    appointments: {}
+    appointments: {},
+    interviewers: {}
   });
 
-  const dailyAppointments = getAppointmentsForDay(state, state.day);
 
   useEffect(() => {
     Promise.all([
@@ -31,17 +31,33 @@ export default function Application() {
       })
   })
 
+  const dailyAppointments = getAppointmentsForDay(state, state.day);
+
   const AppointmentListArray = dailyAppointments.map(appointment => {
-    const { time, interview, id } = appointment
+    const interview = getInterview(state, appointment.interview);
     return (
       <Appointment
-        key={id}
-        {...appointment}
-        time={time}
+        key={appointment.id}
+        id={appointment.id}
+        time={appointment.time}
         interview={interview}
       />
     )
   })
+
+  // const dailyAppointments = getAppointmentsForDay(state, state.day);
+
+  // const AppointmentListArray = dailyAppointments.map(appointment => {
+  //   const { time, interview, id } = appointment
+  //   return (
+  //     <Appointment
+  //       key={id}
+  //       {...appointment}
+  //       time={time}
+  //       interview={interview}
+  //     />
+  //   )
+  // })
   return (
     <main className="layout">
       <section className="sidebar">

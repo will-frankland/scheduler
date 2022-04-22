@@ -8,10 +8,23 @@ export function getAppointmentsForDay(state, day) {
   if (filteredDays.length === 0) {
     return [];
   }
-
   filteredDays[0].appointments
-  .forEach(num =>
-    appointmentList.push(state.appointments[num])
-  )
+    .forEach(num =>
+      appointmentList.push(state.appointments[num])
+    )
   return appointmentList;
+}
+
+
+export function getInterview(state, interview) {
+  if (interview === null) {
+    return null;
+  }
+  const interviewData = {};
+  const accessInterviewDetails = state.interviewers[interview.interviewer]
+  const student = interview.student
+  // console.log("-->", accessInterviewDetails);
+  interviewData["student"] = student
+  interviewData["interviewer"] = accessInterviewDetails
+  return interviewData;
 }
