@@ -12,7 +12,7 @@ export default function useVisualMode(initial) {
   }
 
   function back() {
-    // use cb to access the most recent history state
+        // use cb to access the most recent history state
     setHistory(history => {
       // create a copy  so original state is not modded
       const historyCopy = [...history]
