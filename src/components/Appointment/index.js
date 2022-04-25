@@ -14,7 +14,9 @@ const CREATE = "CREATE";
 const SAVING = "SAVING";
 const DELETING = "DELETING";
 const CONFIRM = "CONFIRM";
-
+const EDIT = "EDIT";
+const ERROR_SAVING = "ERROR_SAVING";
+const ERROR_DELETING = "ERROR_DELETING";
 
 
 export default function Appointment(props) {
@@ -32,12 +34,15 @@ export default function Appointment(props) {
       .catch((error) => console.log(error))
   }
 
-  // Delete appt.
   function deleteAppointment() {
     transition(DELETING)
     props.cancelInterview(props.id)
       .then(() => transition(EMPTY))
       .catch((error) => console.log(error))
+  }
+
+  function edit() {
+    transition(EDIT);
   }
 
   return (
@@ -51,6 +56,7 @@ export default function Appointment(props) {
           student={props.interview.student}
           interviewer={props.interview.interviewer}
           onDelete={() => transition(CONFIRM)}
+          onEdit={edit}
         />
       )}
       {mode === CREATE && (
@@ -63,14 +69,23 @@ export default function Appointment(props) {
           interviewer={props.interviewer}
         />
       )}
+      {mode === EDIT && (
+        <Form
+          name={props.interview.name}
+          interviewer={props.interview.interviewer["id"]}
+          interviewers={props.interviewers}
+          onCancel={back}
+          onSave={save}
+        />
+      )}
       {mode === CONFIRM && (
         <Confirm
           onCancel={back}
           onConfirm={deleteAppointment}
         />
       )}
-      {mode === SAVING && (<Status message="Saving"/>)}
-      {mode === DELETING && (<Status message="Deleting"/>)}
+      {mode === SAVING && (<Status message="Saving" />)}
+      {mode === DELETING && (<Status message="Deleting" />)}
     </article>
   );
 }
