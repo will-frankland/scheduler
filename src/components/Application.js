@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
 
 import "components/Application.scss";
 import DayList from "./DayList";
@@ -11,7 +10,6 @@ import useApplicationData from "hooks/useApplicationData";
 export default function Application() {
   
   const { state, setDay, bookInterview, cancelInterview } = useApplicationData();
-  console.log("state-->", state);
 
   const dailyAppointments = getAppointmentsForDay(state, state.day);
 
@@ -30,6 +28,7 @@ export default function Application() {
       />
     )
   })
+  
 
   return (
     <main className="layout">
@@ -55,6 +54,10 @@ export default function Application() {
       </section>
       <section className="schedule">
         {AppointmentListArray}
+        <Appointment
+          key='last'
+          time='5pm'
+        />
       </section>
     </main>
   );

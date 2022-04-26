@@ -21,16 +21,29 @@ export default function useApplicationData() {
       ...state.appointments,
       [id]: appointment
     };
+
+    // update spots when interview booked
+    const locateDays = state.days.find((day) => day.appointments.includes(id));
+    const days = state.days.map((day) => {
+      if (day.name === locateDays.name && state.appointments[id].interview === null)
+      { return {
+        ...day, spots: day.spots - 1 };
+      } else {
+        return day;
+      }
+    });
+
     return axios.put(`/api/appointments/${id}`, { interview })
       .then(() => {
         setState({
           ...state,
-          appointments
+          appointments,
+          days
         });
       })
   }
 
-  function cancelInterview(id, interview) {
+  function cancelInterview(id) {
     const appointment = {
       ...state.appointments[id],
       interview: null 
@@ -39,11 +52,24 @@ export default function useApplicationData() {
       ...state.appointments,
       [id]: appointment
     };
+
+    // update spots when interview cancelled
+    const locateDays = state.days.find((day) => day.appointments.includes(id));
+    const days = state.days.map((day) => {
+      if (day.name === locateDays.name)
+      { return {
+        ...day, spots: day.spots + 1 };
+      } else {
+        return day;
+      }
+    });
+
     return axios.delete(`/api/appointments/${id}`)
       .then(() => {
         setState({
           ...state,
-          appointments
+          appointments,
+          days
         });
       })
   }
