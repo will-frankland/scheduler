@@ -1,6 +1,6 @@
 # Interview Scheduler
 
-This app was built using JS, node.js React, Storybook, Jest and Cypress. It is a simple scheduling app that allows users to add, edit and delete interview
+This app was built using JS, node.js React, Axios, Storybook, Jest and Cypress. It is a simple scheduling app that allows users to add, edit and delete interview
 appointments, the slots will update automatically on the side panel when these actions are performed.
 
 ## Setup
