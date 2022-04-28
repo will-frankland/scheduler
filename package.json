@@ -33,6 +33,7 @@
   },
   "devDependencies": {
     "@babel/core": "^7.4.3",
+    "@babel/plugin-transform-react-jsx": "^7.17.3",
     "@storybook/addon-actions": "^5.0.10",
     "@storybook/addon-backgrounds": "^5.0.10",
     "@storybook/addon-links": "^5.0.10",

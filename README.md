@@ -1,11 +1,31 @@
 # Interview Scheduler
 
-This app was built using JS, node.js React, Axios, Storybook, Jest and Cypress. It is a simple scheduling app that allows users to add, edit and delete interview
-appointments, the slots will update automatically on the side panel when these actions are performed.
+This app was built using JS, node.js React, Axios, Storybook, Jest and Cypress. It is a simple scheduling app that allows users to add, edit and delete interview appointments, the slots will update automatically on the side panel when these actions are performed.
 
 ## Setup
 
-Install dependencies with `npm install`. This will allow your machine to run the project.
+Install dependencies with `npm install`. This will allow your machine to run the project. `npm start` in the root directory
+will run the server.
+
+The scheduler app requires the use of scheduler-api which provides a database that scheduler sends api requests to in order
+to store and access scheduling data.
+
+Scheduler-api can be accessed at: https://github.com/will-frankland/scheduler-api. Please run `npm start` in a seperate terminal
+window in order to run the db server which will host on localhost8001 once this has been forked and cloned.
+
+Storybook can be utilized by running `npm run storybook` from the root directory. Storybook allows a component isolated view of
+each step of the project.
+
+## Dependencies
+
+- Cypress: Testing program
+- Storybook: UI component builder
+- Babel: JS compiler
+- Axios: JS library to make HTTP requests
+- React: JS library for UI
+- @testing-library/react
+- @testing-library/jest
+- @testing-library/jest-dom
 
 ## Running Webpack Development Server
 

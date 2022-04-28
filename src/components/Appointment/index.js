@@ -1,6 +1,6 @@
-import React, { Fragment } from 'react'
+import React from 'react'
 import "./styles.scss";
-import Header from "./header";
+import Header from "./Header";
 import Show from "./Show";
 import Empty from "./Empty";
 import Form from "./Form";
@@ -66,7 +66,7 @@ export default function Appointment(props) {
         <Form
           interviewers={props.interviewers}
           onSave={save}
-          onCancel={deleteAppointment}
+          onCancel={() => back()}
           interview={props.interview}
           student={props.student}
           interviewer={props.interviewer}
@@ -74,23 +74,24 @@ export default function Appointment(props) {
       )}
       {mode === EDIT && (
         <Form
-          name={props.interview.name}
+          student={props.interview.student}
           interviewer={props.interview.interviewer["id"]}
           interviewers={props.interviewers}
           onCancel={back}
           onSave={save}
-        />
+          />
       )}
       {mode === CONFIRM && (
         <Confirm
+          message={"Delete appointment?"}
           onCancel={back}
           onConfirm={deleteAppointment}
         />
       )}
       {mode === SAVING && (<Status message="Saving" />)}
       {mode === DELETING && (<Status message="Deleting" />)}
-      {mode === ERROR_SAVING && (<Error message="Unable to save" onClose={() => back()} />)}
-      {mode === ERROR_DELETING && (<Error message="Unable to delete" onClose={() => back()} />)}
+      {mode === ERROR_SAVING && (<Error message="Unable to save" onClose={() => transition(CREATE)} />)}
+      {mode === ERROR_DELETING && (<Error message="Unable to delete" onClose={() => transition(SHOW)} />)}
     </article>
   );
 }
